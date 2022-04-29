@@ -1,117 +1,132 @@
 package post_requests;
 
-import base_urls.AgroMonitoringApiBaseUrl;
+import base_urls.AgroMonitoringBaseUrl;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
-import test_data.AgroMonitoringTestData;
+import test_data.AgroMonitoringApiTestData;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
-public class Post03 extends AgroMonitoringApiBaseUrl {
+public class Post03 extends AgroMonitoringBaseUrl {
 
     /*
-       Given
-		"http://api.agromonitoring.com/agro/1.0/polygons?appid=f4ffe3b2ef1fcb3600ab1d7fbc88c2f0&duplicated=true"
-            {
-               "name":"Polygon Sample",
-               "geo_json":{
-                  "type":"Feature",
-                  "properties":{},
-                  "geometry":{
-                     "type":"Polygon",
-                     "coordinates":[
-                        [
-                           [-121.1958,37.6683],
-                           [-121.1779,37.6687],
-                           [-121.1773,37.6792],
-                           [-121.1958,37.6792],
-                           [-121.1958,37.6683]
-                        ]
-                     ]
-                  }
-               }
-            }
-	When
-		 I send POST Request to the Url
-	Then
-		Assert Status Code (201)
-		And Response Body should be like {
-										    "id": "5fd8c383714b523b2ce1f154",
-										    "geo_json": {
-										        "geometry": {
-										            "coordinates": [
-										                [
-										                    [
-										                        -121.1958,
-										                        37.6683
-										                    ],
-										                    [
-										                        -121.1779,
-										                        37.6687
-										                    ],
-										                    [
-										                        -121.1773,
-										                        37.6792
-										                    ],
-										                    [
-										                        -121.1958,
-										                        37.6792
-										                    ],
-										                    [
-										                        -121.1958,
-										                        37.6683
-										                    ]
-										                ]
-										            ],
-										            "type": "Polygon"
-										        },
-										        "type": "Feature",
-										        "properties": {
-										        }
-										    },
-										    "name": "Polygon Sample",
-										    "center": [
-										        -121.1867,
-										        37.67385
-										    ],
-										    "area": 190.9484,
-										    "user_id": "5fd8c02a3da20c000759e0f8",
-										    "created_at": 1608041347
-										}
+        Given
+            1) "http://api.agromonitoring.com/agro/1.0/polygons?appid=f4ffe3b2ef1fcb3600ab1d7fbc88c2f0&duplicated=true"
+            2) {
+                "name":"Polygon Sample",
+                "geo_json":{
+                   "type":"Feature",
+                   "properties":{},
+                   "geometry":{
+                      "type":"Polygon",
+                      "coordinates":[
+                                     [
+                                        [-121.1958,37.6683],
+                                        [-121.1779,37.6687],
+                                        [-121.1773,37.6792],
+                                        [-121.1958,37.6792],
+                                        [-121.1958,37.6683]
+                                    ]
+                                  ]
+                              }
+                           }
+                 }
+	    When
+		    I send POST Request to the Url
+	    Then
+		    Assert Status Code (201)
+		    And Response Body should be like {
+                                                "id": "5fd8c383714b523b2ce1f154",
+                                                "geo_json": {
+                                                    "geometry": {
+                                                        "coordinates": [
+                                                            [
+                                                                [
+                                                                    -121.1958,
+                                                                    37.6683
+                                                                ],
+                                                                [
+                                                                    -121.1779,
+                                                                    37.6687
+                                                                ],
+                                                                [
+                                                                    -121.1773,
+                                                                    37.6792
+                                                                ],
+                                                                [
+                                                                    -121.1958,
+                                                                    37.6792
+                                                                ],
+                                                                [
+                                                                    -121.1958,
+                                                                    37.6683
+                                                                ]
+                                                            ]
+                                                        ],
+                                                        "type": "Polygon"
+                                                    },
+                                                    "type": "Feature",
+                                                    "properties": {
+                                                                  }
+                                                },
+                                                "name": "Polygon Sample",
+                                                "center": [
+                                                    -121.1867,
+                                                    37.67385
+                                                ],
+                                                "area": 190.9484,
+                                                "user_id": "5fd8c02a3da20c000759e0f8",
+                                                "created_at": 1608041347
+                                            }
      */
-
     @Test
-    public void post03(){
+    public void post01(){
 
-        //1.Step: Set the url
+        //1.Step: Set the Url
         spec.pathParams("first", "agro", "second", 1.0, "third", "polygons").
-                queryParams("appid", "f4ffe3b2ef1fcb3600ab1d7fbc88c2f0", "duplicated", true);
+             queryParams("appid", "f4ffe3b2ef1fcb3600ab1d7fbc88c2f0", "duplicated", true);
 
-        //2.Step: Set the expected data
-        AgroMonitoringTestData requestBody = new AgroMonitoringTestData();
-        Map<String, Object> requestBodyMap = requestBody.requestBodySetUp();
+        //2.Step: Set the Expected Data
+        AgroMonitoringApiTestData requestBody = new AgroMonitoringApiTestData();
+        Map<String, Object> requestBodyMap = requestBody.requestBody();
 
-        //3.Step: Send the request and get the response
+        //3.Step: Send the POST Request and get the response
         Response response = given().spec(spec).contentType(ContentType.JSON).body(requestBodyMap).when().post("/{first}/{second}/{third}");
         response.prettyPrint();
 
-        //Add more key-values into the request body
-        requestBodyMap.put("area", 190.9484);
+        //4.Step: Do Assertions
+        //1.Way:
+        Map<String, Object> actualDataMap = response.as(HashMap.class);
 
-        //Use GSON to convert response to a Map
-        Map<String, Object> responseBody = response.as(HashMap.class);
-        System.out.println(responseBody);
+        assertEquals(requestBodyMap.get("name"), actualDataMap.get("name"));
+        //assertEquals(requestBodyMap.get("center"), actualDataMap.get("center"));
+        assertEquals(requestBodyMap.get("area"), actualDataMap.get("area"));
+        assertEquals(String.valueOf(requestBody.coordinates[0][0][0]), ((Map)((Map)actualDataMap.get("geo_json")).get("geometry")).get("coordinates").toString().substring(3, 12));
+        assertEquals(requestBody.geometrySetUp().get("type"), ((Map)((Map)actualDataMap.get("geo_json")).get("geometry")).get("type"));
 
-        assertEquals(requestBodyMap.get("area"), responseBody.get("area"));
-        assertEquals(requestBodyMap.get("name"), responseBody.get("name"));
-        assertEquals(requestBody.geometrySetUp().get("type"), ((Map)((Map)responseBody.get("geo_json")).get("geometry")).get("type"));
+        //2.Way:
+        JsonPath json = response.jsonPath();
 
-        assertEquals(String.valueOf(requestBody.coordinates[0][1][0]), ((Map)((Map)responseBody.get("geo_json")).get("geometry")).get("coordinates").toString().substring(25,34));
+        assertTrue(json.get("geo_json.geometry.coordinates[0][0][0]").equals(requestBody.coordinates[0][0][0]));
+        assertTrue(json.get("geo_json.geometry.type").equals(requestBody.geometrySetUp().get("type")));
+        assertTrue(json.get("geo_json.type").equals(requestBody.geo_jsonSetUp().get("type")));
+        assertTrue(json.get("geo_json.properties").equals(requestBody.geo_jsonSetUp().get("properties")));
+        assertTrue(json.get("name").equals(requestBodyMap.get("name")));
+        assertTrue(json.get("center[0]").equals(requestBody.center[0]));
+        assertTrue(json.get("center[1]").equals(requestBody.center[1]));
+        assertTrue(json.get("area").toString().equals(requestBodyMap.get("area").toString()));//json.get("area") returns Object but requestBodyMap.get("area") is Double if we do not use toString() it says they are different
+
+
+
 
     }
+
 }
