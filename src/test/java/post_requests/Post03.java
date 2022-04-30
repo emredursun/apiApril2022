@@ -104,28 +104,28 @@ public class Post03 extends AgroMonitoringBaseUrl {
 
         //4.Step: Do Assertions
         //1.Way:
-        Map<String, Object> actualDataMap = response.as(HashMap.class);
+        //Map<String, Object> actualDataMap = response.as(HashMap.class);
 
-        assertEquals(requestBodyMap.get("name"), actualDataMap.get("name"));
+        //assertEquals(requestBodyMap.get("name"), actualDataMap.get("name"));
         //assertEquals(requestBodyMap.get("center"), actualDataMap.get("center"));
-        assertEquals(requestBodyMap.get("area"), actualDataMap.get("area"));
-        assertEquals(String.valueOf(requestBody.coordinates[0][0][0]), ((Map)((Map)actualDataMap.get("geo_json")).get("geometry")).get("coordinates").toString().substring(3, 12));
-        assertEquals(requestBody.geometrySetUp().get("type"), ((Map)((Map)actualDataMap.get("geo_json")).get("geometry")).get("type"));
+        //assertEquals(requestBodyMap.get("area"), actualDataMap.get("area"));
+        //assertEquals(String.valueOf(requestBody.coordinates[0][0][0]), ((Map)((Map)actualDataMap.get("geo_json")).get("geometry")).get("coordinates").toString().substring(3, 12));
+        //assertEquals(requestBody.geometrySetUp().get("type"), ((Map)((Map)actualDataMap.get("geo_json")).get("geometry")).get("type"));
 
         //2.Way:
         JsonPath json = response.jsonPath();
 
-        assertTrue(json.get("geo_json.geometry.coordinates[0][0][0]").equals(requestBody.coordinates[0][0][0]));
-        assertTrue(json.get("geo_json.geometry.type").equals(requestBody.geometrySetUp().get("type")));
-        assertTrue(json.get("geo_json.type").equals(requestBody.geo_jsonSetUp().get("type")));
-        assertTrue(json.get("geo_json.properties").equals(requestBody.geo_jsonSetUp().get("properties")));
-        assertTrue(json.get("name").equals(requestBodyMap.get("name")));
-        assertTrue(json.get("center[0]").equals(requestBody.center[0]));
-        assertTrue(json.get("center[1]").equals(requestBody.center[1]));
-        assertTrue(json.get("area").toString().equals(requestBodyMap.get("area").toString()));//json.get("area") returns Object but requestBodyMap.get("area") is Double if we do not use toString() it says they are different
+        assertTrue(json.getFloat("geo_json.geometry.coordinates[0][0][0]")==requestBody.coordinates[0][0][0]);
+        assertTrue(json.getString("geo_json.geometry.type").equals(requestBody.geometrySetUp().get("type")));
+        assertTrue(json.getString("geo_json.type").equals(requestBody.geo_jsonSetUp().get("type")));
+        assertTrue(json.getJsonObject("geo_json.properties").equals(requestBody.geo_jsonSetUp().get("properties")));
+        assertTrue(json.getString("name").equals(requestBodyMap.get("name")));
+        assertTrue(json.getFloat("center[0]")==requestBody.center[0]);
+        assertTrue(json.getFloat("center[1]")==requestBody.center[1]);
 
-
-
+        //To assert "area" value you can use both of the followings
+        assertTrue(json.get("area").toString().equals(requestBodyMap.get("area").toString()));
+        assertTrue(json.getDouble("area")==(Double)requestBodyMap.get("area"));
 
     }
 
