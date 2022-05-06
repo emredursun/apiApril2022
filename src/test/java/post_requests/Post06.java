@@ -5,7 +5,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.DummyApiDataPojo;
-import pojos.ResponseBodyPojo;
+import pojos.DummyApiResponseBodyPojo;
 import utils.JsonUtil;
 
 import static io.restassured.RestAssured.*;
@@ -69,9 +69,9 @@ public class Post06 extends DummyRestApiBaseUrl {
     public void post01(){
         spec.pathParam("first", "create");
         DummyApiDataPojo dummyApiDataPojo = new DummyApiDataPojo("Tom Hanks", 111111, 23, "Perfect image");
-        ResponseBodyPojo expectedData = new ResponseBodyPojo("success", dummyApiDataPojo, "Successfully! Record has been added.");
+        DummyApiResponseBodyPojo expectedData = new DummyApiResponseBodyPojo("success", dummyApiDataPojo, "Successfully! Record has been added.");
         Response response = given().spec(spec).contentType(ContentType.JSON).body(dummyApiDataPojo).when().post("/{first}");
-        ResponseBodyPojo actualData = JsonUtil.convertJsonToJavaObject(response.asString(), ResponseBodyPojo.class);
+        DummyApiResponseBodyPojo actualData = JsonUtil.convertJsonToJavaObject(response.asString(), DummyApiResponseBodyPojo.class);
         assertEquals(expectedData.getStatus(), actualData.getStatus());
         assertEquals(expectedData.getMessage(), actualData.getMessage());
         assertEquals(expectedData.getData().getEmployee_name(), actualData.getData().getEmployee_name());

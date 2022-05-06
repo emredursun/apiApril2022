@@ -1,11 +1,10 @@
 package get_requests;
 
 import base_urls.DummyRestApiBaseUrl;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
 import pojos.DummyApiDataPojo;
-import pojos.ResponseBodyPojo;
+import pojos.DummyApiResponseBodyPojo;
 import utils.JsonUtil;
 
 import static io.restassured.RestAssured.*;
@@ -46,10 +45,10 @@ public class Get17 extends DummyRestApiBaseUrl {
     public void get01(){
         spec.pathParams("first", "employee", "second", 1);
         DummyApiDataPojo dataPojo = new DummyApiDataPojo("Tiger Nixon", 320800, 61, "");
-        ResponseBodyPojo responsePojo = new ResponseBodyPojo("success", dataPojo, "Successfully! Record has been fetched.");
+        DummyApiResponseBodyPojo responsePojo = new DummyApiResponseBodyPojo("success", dataPojo, "Successfully! Record has been fetched.");
         Response response = given().spec(spec).when().get("/{first}/{second}");
         response.then().assertThat().statusCode(200);
-        ResponseBodyPojo responseBodyPojo = JsonUtil.convertJsonToJavaObject(response.asString(), ResponseBodyPojo.class);
+        DummyApiResponseBodyPojo responseBodyPojo = JsonUtil.convertJsonToJavaObject(response.asString(), DummyApiResponseBodyPojo.class);
         assertEquals(responsePojo.getStatus(), responseBodyPojo.getStatus());
         assertEquals(responsePojo.getMessage(), responseBodyPojo.getMessage());
         assertEquals(responsePojo.getData().getEmployee_name(), responseBodyPojo.getData().getEmployee_name());

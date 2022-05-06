@@ -3,15 +3,15 @@ package pojos;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResponseBodyPojo {
+public class DummyApiResponseBodyPojo {
 
     private String status;
     private DummyApiDataPojo data;
     private String message;
 
-    public ResponseBodyPojo() {
+    public DummyApiResponseBodyPojo() {
     }
-    public ResponseBodyPojo(String status, DummyApiDataPojo data, String message) {
+    public DummyApiResponseBodyPojo(String status, DummyApiDataPojo data, String message) {
         this.status = status;
         this.data = data;
         this.message = message;
