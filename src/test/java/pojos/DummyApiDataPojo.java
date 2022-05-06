@@ -5,52 +5,52 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DummyApiDataPojo {
 
-    private String employeeName;
-    private Integer employeeSalary;
-    private Integer employeeAge;
-    private String profileImage;
+    private String employee_name;
+    private Integer employee_salary;
+    private Integer employee_age;
+    private String profile_image;
 
     public DummyApiDataPojo() {
     }
     public DummyApiDataPojo(String employeeName, Integer employeeSalary, Integer employeeAge, String profileImage) {
-        this.employeeName = employeeName;
-        this.employeeSalary = employeeSalary;
-        this.employeeAge = employeeAge;
-        this.profileImage = profileImage;
+        this.employee_name = employeeName;
+        this.employee_salary = employeeSalary;
+        this.employee_age = employeeAge;
+        this.profile_image = profileImage;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getEmployee_name() {
+        return employee_name;
     }
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setEmployee_name(String employee_name) {
+        this.employee_name = employee_name;
     }
-    public Integer getEmployeeSalary() {
-        return employeeSalary;
+    public Integer getEmployee_salary() {
+        return employee_salary;
     }
-    public void setEmployeeSalary(Integer employeeSalary) {
-        this.employeeSalary = employeeSalary;
+    public void setEmployee_salary(Integer employee_salary) {
+        this.employee_salary = employee_salary;
     }
-    public Integer getEmployeeAge() {
-        return employeeAge;
+    public Integer getEmployee_age() {
+        return employee_age;
     }
-    public void setEmployeeAge(Integer employeeAge) {
-        this.employeeAge = employeeAge;
+    public void setEmployee_age(Integer employee_age) {
+        this.employee_age = employee_age;
     }
-    public String getProfileImage() {
-        return profileImage;
+    public String getProfile_image() {
+        return profile_image;
     }
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 
     @Override
     public String toString() {
         return "Data{" +
-                ", employeeName='" + employeeName + '\'' +
-                ", employeeSalary=" + employeeSalary +
-                ", employeeAge=" + employeeAge +
-                ", profileImage='" + profileImage + '\'' +
+                ", employeeName='" + employee_name + '\'' +
+                ", employeeSalary=" + employee_salary +
+                ", employeeAge=" + employee_age +
+                ", profileImage='" + profile_image + '\'' +
                 '}';
     }
 }

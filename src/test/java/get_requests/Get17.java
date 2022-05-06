@@ -1,7 +1,6 @@
 package get_requests;
 
 import base_urls.DummyRestApiBaseUrl;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -51,12 +50,11 @@ public class Get17 extends DummyRestApiBaseUrl {
         Response response = given().spec(spec).when().get("/{first}/{second}");
         response.then().assertThat().statusCode(200);
         ResponseBodyPojo responseBodyPojo = JsonUtil.convertJsonToJavaObject(response.asString(), ResponseBodyPojo.class);
-        JsonPath json = response.jsonPath();
         assertEquals(responsePojo.getStatus(), responseBodyPojo.getStatus());
         assertEquals(responsePojo.getMessage(), responseBodyPojo.getMessage());
-        assertEquals(responsePojo.getData().getEmployeeName(), json.getString("data.employee_name"));
-        assertEquals(responsePojo.getData().getEmployeeSalary(), (Integer)json.getInt("data.employee_salary"));
-        assertEquals(responsePojo.getData().getEmployeeAge(), (Integer)json.getInt("data.employee_age"));
-        assertEquals(responsePojo.getData().getProfileImage(), json.getString("data.profile_image"));
+        assertEquals(responsePojo.getData().getEmployee_name(), responseBodyPojo.getData().getEmployee_name());
+        assertEquals(responsePojo.getData().getEmployee_salary(), responseBodyPojo.getData().getEmployee_salary());
+        assertEquals(responsePojo.getData().getEmployee_age(), responseBodyPojo.getData().getEmployee_age());
+        assertEquals(responsePojo.getData().getProfile_image(), responseBodyPojo.getData().getProfile_image());
     }
 }
