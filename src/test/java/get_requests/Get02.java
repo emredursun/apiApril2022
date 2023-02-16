@@ -2,6 +2,8 @@ package get_requests;
 
 import io.restassured.response.Response;
 import org.junit.Test;
+import java.util.Scanner;
+import org.testng.util.Strings;
 
 import static io.restassured.RestAssured.*;
 import static org.junit.Assert.*;

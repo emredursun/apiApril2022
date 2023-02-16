@@ -55,7 +55,7 @@ public class Get09 extends HerOkuAppBaseUrl {
         Map<String, Object> actualDataMap = response.as(HashMap.class);
         System.out.println(actualDataMap);
 
-        //Do Assertions
+        //4.Step: Do Assertions
         //assertEquals(expectedDataMap.get("firstname"), actualDataMap.get("firstname"));
         //assertEquals(expectedDataMap.get("lastname"), actualDataMap.get("lastname"));
         //assertEquals(expectedDataMap.get("depositpaid"), actualDataMap.get("depositpaid"));

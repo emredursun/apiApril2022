@@ -54,7 +54,7 @@ public class Post01 extends HerOkuAppBaseUrl {
         //2.Step: Set the Expected Data
         HerOkuAppTestData herOkuApp = new HerOkuAppTestData();
         Map<String, String> bookingDatesMap = herOkuApp.bookingDateSetUp("2020-09-09", "2020-09-21");
-        Map<String, Object> expectedDataMap = herOkuApp.expectedDataSetUp("Selim", "Ak", 11111, true, bookingDatesMap);
+        Map<String, Object> expectedDataMap = herOkuApp.expectedDataSetUp("Selim", "Ak", 11111, true, bookingDatesMap, "Lunch");
         //3.Step: Send POST Request and get the Response
         Response response = given().spec(spec).contentType(ContentType.JSON).body(expectedDataMap).when().post("/{first}");
         response.prettyPrint();

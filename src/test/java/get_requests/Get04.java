@@ -37,19 +37,22 @@ public class Get04 extends JsonPlaceHolderBaseUrl {
         //2.Step: Set the Expected Data
 
         //3.Step: Send the Request and Get the Response
-        Response response = given().spec(spec).accept(ContentType.JSON).when().get("/{first}");
+        Response response = given()
+                .spec(spec)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{first}");
         response.prettyPrint();
 
         //4.Step: Do Assertions
-        response.
-                then().
-                assertThat().
-                statusCode(200).
-                contentType(ContentType.JSON).
-                body("id", hasSize(200),
+        response
+                .then()
+                .assertThat().
+                statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("id", hasSize(200),
                         "title", hasItem("quis eius est sint explicabo"),
                         "userId", hasItems(2, 7, 9));
-
     }
 
 }

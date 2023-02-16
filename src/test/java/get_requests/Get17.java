@@ -45,15 +45,15 @@ public class Get17 extends DummyRestApiBaseUrl {
     public void get01(){
         spec.pathParams("first", "employee", "second", 1);
         DummyApiDataPojo dataPojo = new DummyApiDataPojo("Tiger Nixon", 320800, 61, "");
-        DummyApiResponseBodyPojo responsePojo = new DummyApiResponseBodyPojo("success", dataPojo, "Successfully! Record has been fetched.");
+        DummyApiResponseBodyPojo expectedResponseBodyPojo = new DummyApiResponseBodyPojo("success", dataPojo, "Successfully! Record has been fetched.");
         Response response = given().spec(spec).when().get("/{first}/{second}");
         response.then().assertThat().statusCode(200);
-        DummyApiResponseBodyPojo responseBodyPojo = JsonUtil.convertJsonToJavaObject(response.asString(), DummyApiResponseBodyPojo.class);
-        assertEquals(responsePojo.getStatus(), responseBodyPojo.getStatus());
-        assertEquals(responsePojo.getMessage(), responseBodyPojo.getMessage());
-        assertEquals(responsePojo.getData().getEmployee_name(), responseBodyPojo.getData().getEmployee_name());
-        assertEquals(responsePojo.getData().getEmployee_salary(), responseBodyPojo.getData().getEmployee_salary());
-        assertEquals(responsePojo.getData().getEmployee_age(), responseBodyPojo.getData().getEmployee_age());
-        assertEquals(responsePojo.getData().getProfile_image(), responseBodyPojo.getData().getProfile_image());
+        DummyApiResponseBodyPojo actualResponseBodyPojo = JsonUtil.convertJsonToJavaObject(response.asString(), DummyApiResponseBodyPojo.class);
+        assertEquals(expectedResponseBodyPojo.getStatus(), actualResponseBodyPojo.getStatus());
+        assertEquals(expectedResponseBodyPojo.getMessage(), actualResponseBodyPojo.getMessage());
+        assertEquals(expectedResponseBodyPojo.getData().getEmployee_name(), actualResponseBodyPojo.getData().getEmployee_name());
+        assertEquals(expectedResponseBodyPojo.getData().getEmployee_salary(), actualResponseBodyPojo.getData().getEmployee_salary());
+        assertEquals(expectedResponseBodyPojo.getData().getEmployee_age(), actualResponseBodyPojo.getData().getEmployee_age());
+        assertEquals(expectedResponseBodyPojo.getData().getProfile_image(), actualResponseBodyPojo.getData().getProfile_image());
     }
 }
