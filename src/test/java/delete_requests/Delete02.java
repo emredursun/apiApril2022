@@ -58,7 +58,7 @@ public class Delete02 extends DummyRestApiBaseUrl {
         DummyApiDeleteResponseBodyPojo actualDummyApiDeleteResponseBody = JsonUtil.convertJsonToJavaObject(response.asString(), DummyApiDeleteResponseBodyPojo.class);
 
         //4.Step: Do Assertion
-        response.then().assertThat().statusCode(200);
+        assertEquals(200, response.statusCode());
         assertEquals(expectedDummyApiDeleteResponseBody.getStatus(),actualDummyApiDeleteResponseBody.getStatus());
         assertEquals(expectedDummyApiDeleteResponseBody.getData(),actualDummyApiDeleteResponseBody.getData());
         assertEquals(expectedDummyApiDeleteResponseBody.getMessage(),actualDummyApiDeleteResponseBody.getMessage());
